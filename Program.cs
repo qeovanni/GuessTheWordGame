@@ -1,32 +1,68 @@
-﻿namespace GuessTheWordGame
+﻿using System;
+
+namespace GuessTheWordGame
 {
-    internal class Program
+    class Program
     {
         static void Main(string[] args)
         {
-            WordGame game = new WordGame();
-            game.StartNewGame();
+            // Create a new game with 3 attempts
+            WordGame game = new WordGame(3);
 
-            while (!game.IsGameOver())
+            bool playAgain = true;
+
+            while (playAgain)
             {
-                Console.WriteLine("Guess the word: " + game.GetScrambledWord());
-                string guess = Console.ReadLine();
+                // Start a new round
+                game.StartNewGame();
 
-                if (game.CheckGuess(guess))
+                Console.Clear();
+                Console.WriteLine("╔══════════════════════════════════════════╗");
+                Console.WriteLine("║  Welcome to Guess the Football Player!   ║");
+                Console.WriteLine("╚══════════════════════════════════════════╝");
+                Console.WriteLine($"\nWhat player are we seeking?");
+                Console.WriteLine($"Scrambled player name: {game.GetScrambledWord()}");
+                Console.WriteLine($"You have {game.GetAttemptsLeft()} attempts to guess the right football player.\n");
+
+                // Game loop
+                while (!game.IsGameOver())
                 {
-                    Console.WriteLine("Correct! The word was: " + game.GetOriginalWord());
-                    break;
+                    Console.Write($"Attempts left: {game.GetAttemptsLeft()} | Your guess: ");
+                    string guess = Console.ReadLine();
+
+                    if (string.IsNullOrWhiteSpace(guess))
+                    {
+                        Console.WriteLine("You must write something!\n");
+                        continue;
+                    }
+
+                    if (game.CheckGuess(guess))
+                    {
+                        Console.WriteLine("\nCorrect! You won!\n");
+                        break;
+                    }
+                    else
+                    {
+                        if (!game.IsGameOver())
+                        {
+                            Console.WriteLine("Wrong guess! Try again.\n");
+                        }
+                    }
                 }
-                else
+
+                // Game over - show result
+                if (game.IsGameOver())
                 {
-                    Console.WriteLine("Incorrect! Attempts left: " + game.GetAttemptsLeft());
+                    Console.WriteLine($"\nGame Over! The correct football player was: {game.GetOriginalWord()}\n");
                 }
+
+                // Ask if user wants to play again
+                Console.Write("Do you want to play again? (y/n): ");
+                string response = Console.ReadLine().ToLower();
+                playAgain = response == "y" || response == "yes";
             }
 
-            if (game.IsGameOver())
-            {
-                Console.WriteLine("Game over! The word was: " + game.GetOriginalWord());
-            }
+            Console.WriteLine("\nThanks for playing! Goodbye!");
         }
     }
 }

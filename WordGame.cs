@@ -26,6 +26,7 @@ public class WordGame
     {
         originalWord = WordBank.GetRandomWord();
         scrambledWord = ScrambleWord(originalWord);
+        attemptsLeft = maxAttempts; // Reset attempts for new game
     }
 
     // Scrambles the letters in a word using Fisher-Yates shuffle
@@ -48,13 +49,13 @@ public class WordGame
         return new string(letters);
     }
 
-    // Returns the scrambled word to display to player
+    // Returns the scrambled word to display to user
     public string GetScrambledWord()
     {
         return scrambledWord;
     }
 
-    // Checks if the player's guess matches the original word
+    // Checks if the user's guess matches the original word
     // Returns true if correct, false otherwise
     public bool CheckGuess(string guess)
     {
@@ -74,7 +75,7 @@ public class WordGame
         return attemptsLeft <= 0;
     }
 
-    // Returns the original word (used when player loses)
+    // Returns the original word (used when user loses)
     public string GetOriginalWord()
     {
         return originalWord;
