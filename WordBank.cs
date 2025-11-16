@@ -5,6 +5,8 @@ namespace GuessTheWordGame
 {
     public static class WordBank
     {
+
+        private static Random random = new Random();
         // create a list of football players
         private static List<string> footballPlayers = new List<string>()
         {
@@ -59,7 +61,6 @@ namespace GuessTheWordGame
         // Returns a random word from the word list
         public static string GetRandomWord()
         {
-            Random random = new Random();
             return footballPlayers[random.Next(footballPlayers.Count)];
         }
 

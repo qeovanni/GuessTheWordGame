@@ -7,6 +7,7 @@ namespace GuessTheWordGame
 
     public class WordGame
     {
+        Random random = new Random();
         private string originalWord;
         private string scrambledWord;
         private int attemptsLeft;
@@ -31,7 +32,6 @@ namespace GuessTheWordGame
         private string ScrambleWord(string word)
         {
             char[] letters = word.ToCharArray();
-            Random random = new Random();
 
             // AI suggested counting backwards, personally I would have started from 0.
             // Found out that counting backwards is industrial standard for this algorithm, so I kept it.
