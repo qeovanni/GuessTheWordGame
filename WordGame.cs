@@ -1,83 +1,81 @@
-﻿using GuessTheWordGame;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 
-// Handles the word guessing game logic
-// AI-inspired: Structure and shuffle method suggested by AI, adapted for Swedish words
-public class WordGame
+namespace GuessTheWordGame
 {
-    private string originalWord;
-    private string scrambledWord;
-    private int attemptsLeft;
-    private int maxAttempts;
+    // Handles the word guessing game logic
+    // AI-inspired: Structure and shuffle method suggested by AI
 
-    // Constructor initializes game with specified number of attempts
-    public WordGame(int maxAttempts = 3)
+    public class WordGame
     {
-        this.maxAttempts = maxAttempts;
-        this.attemptsLeft = maxAttempts;
-    }
+        private string originalWord;
+        private string scrambledWord;
+        private int attemptsLeft;
+        private int maxAttempts;
 
-    // Starts a new game with a random word from WordBank
-    public void StartNewGame()
-    {
-        originalWord = WordBank.GetRandomWord();
-        scrambledWord = ScrambleWord(originalWord);
-        attemptsLeft = maxAttempts; // Reset attempts for new game
-    }
-
-    // Scrambles the letters in a word using Fisher-Yates shuffle
-    // AI-inspired: Fisher-Yates shuffle algorithm suggested by AI
-    private string ScrambleWord(string word)
-    {
-        char[] letters = word.ToCharArray();
-        Random random = new Random();
-
-        // Fisher-Yates shuffle algorithm
-        for (int i = letters.Length - 1; i > 0; i--) // "AI valde att göra såhär, jag hade gjort såhär....blablba"
+        // Constructor initializes game with specified number of attempts
+        public WordGame(int maxAttempts = 3)
         {
-            int j = random.Next(i + 1);
-            // Swap letters[i] and letters[j]
-            char temp = letters[i];
-            letters[i] = letters[j];
-            letters[j] = temp;
+            this.maxAttempts = maxAttempts;
+            this.attemptsLeft = maxAttempts;
         }
 
-        return new string(letters);
-    }
+        // Starts a new game with a random word from WordBank
+        public void StartNewGame()
+        {
+            originalWord = WordBank.GetRandomWord();
+            scrambledWord = ScrambleWord(originalWord);
+            attemptsLeft = maxAttempts; // Reset attempts for new game
+        }
 
-    // Returns the scrambled word to display to user
-    public string GetScrambledWord()
-    {
-        return scrambledWord;
-    }
+        // AI-inspired: Fisher-Yates shuffle algorithm suggested by AI to scramble the word. 
+        private string ScrambleWord(string word)
+        {
+            char[] letters = word.ToCharArray();
+            Random random = new Random();
 
-    // Checks if the user's guess matches the original word
-    // Returns true if correct, false otherwise
-    public bool CheckGuess(string guess)
-    {
-        attemptsLeft--;
-        return guess.ToLower().Trim() == originalWord.ToLower();
-    }
+            // AI suggested counting backwards, personally I would have started from 0.
+            // Found out that counting backwards is industrial standard for this algorithm, so I kept it.
+            for (int i = letters.Length - 1; i > 0; i--)
+            {
+                int j = random.Next(i + 1);
+                // Swap letters[i] and letters[j]
+                char temp = letters[i];
+                letters[i] = letters[j];
+                letters[j] = temp;
+            }
+            return new string(letters);
+        }
 
-    // Returns the number of attempts remaining
-    public int GetAttemptsLeft()
-    {
-        return attemptsLeft;
-    }
+        // Returns the scrambled word to display to user
+        public string GetScrambledWord()
+        {
+            return scrambledWord;
+        }
 
-    // Returns true if game is over (no attempts left)
-    public bool IsGameOver()
-    {
-        return attemptsLeft <= 0;
-    }
+        // Checks if the user's guess matches the original word
+        // Returns true if correct, false otherwise
+        public bool CheckGuess(string guess)
+        {
+            attemptsLeft--;
+            return guess.ToLower().Trim() == originalWord.ToLower();
+        }
 
-    // Returns the original word (used when user loses)
-    public string GetOriginalWord()
-    {
-        return originalWord;
+        // Returns the number of attempts remaining
+        public int GetAttemptsLeft()
+        {
+            return attemptsLeft;
+        }
+
+        // Returns true if game is over (no attempts left)
+        public bool IsGameOver()
+        {
+            return attemptsLeft <= 0;
+        }
+
+        // Returns the original word (used when user loses)
+        public string GetOriginalWord()
+        {
+            return originalWord;
+        }
     }
 }

@@ -17,10 +17,11 @@ namespace GuessTheWordGame
                 game.StartNewGame();
 
                 Console.Clear();
+                // AI generated welcome banner.
                 Console.WriteLine("╔══════════════════════════════════════════╗");
                 Console.WriteLine("║  Welcome to Guess the Football Player!   ║");
                 Console.WriteLine("╚══════════════════════════════════════════╝");
-                Console.WriteLine($"\nWhat player are we seeking?");
+                Console.WriteLine("\nWhat player are we seeking?");
                 Console.WriteLine($"Scrambled player name: {game.GetScrambledWord()}");
                 Console.WriteLine($"You have {game.GetAttemptsLeft()} attempts to guess the right football player.\n");
 
