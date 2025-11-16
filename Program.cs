@@ -44,7 +44,8 @@ namespace GuessTheWordGame
                     }
                     else
                     {
-                        if (!game.IsGameOver())
+                        // AI wanted me to have an if statement here 'if (!game.IsGameOver())'
+                        // I thought it wasn't necessary right now.
                         {
                             Console.WriteLine("Wrong guess! Try again.\n");
                         }
