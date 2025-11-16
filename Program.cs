@@ -7,7 +7,7 @@ namespace GuessTheWordGame
         static void Main(string[] args)
         {
             // Create a new game with 3 attempts
-            WordGame game = new WordGame(3);
+            WordGame game = new WordGame();
 
             bool playAgain = true;
 
